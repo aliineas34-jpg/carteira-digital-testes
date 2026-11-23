@@ -15,29 +15,20 @@ public class ContaService {
     }
 
     public Double consultarSaldo(Long id) {
-        Conta conta = contaRepository.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("Conta não encontrada"));
-        return conta.getSaldo();
+        return buscarConta(id).getSaldo();
     }
 
     public void depositar(Long id, Double valor) {
-        if (valor == null || valor <= 0) {
-            throw new IllegalArgumentException("O valor do depósito deve ser maior que zero");
-        }
-        Conta conta = contaRepository.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("Conta não encontrada"));
+        validarValorPositivo(valor);
+        Conta conta = buscarConta(id);
         conta.setSaldo(conta.getSaldo() + valor);
         contaRepository.save(conta);
     }
 
     public void transferir(Long idOrigem, Long idDestino, Double valor) {
-        if (valor == null || valor <= 0) {
-            throw new IllegalArgumentException("O valor da transferência deve ser maior que zero");
-        }
-        Conta origem = contaRepository.findById(idOrigem)
-                .orElseThrow(() -> new IllegalArgumentException("Conta de origem não encontrada"));
-        Conta destino = contaRepository.findById(idDestino)
-                .orElseThrow(() -> new IllegalArgumentException("Conta de destino não encontrada"));
+        validarValorPositivo(valor);
+        Conta origem = buscarConta(idOrigem);
+        Conta destino = buscarConta(idDestino);
 
         if (origem.getSaldo() < valor) {
             throw new SaldoInsuficienteException("Saldo insuficiente para realizar a transferência");
@@ -47,5 +38,16 @@ public class ContaService {
         destino.setSaldo(destino.getSaldo() + valor);
         contaRepository.save(origem);
         contaRepository.save(destino);
+    }
+
+    private Conta buscarConta(Long id) {
+        return contaRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("Conta não encontrada"));
+    }
+
+    private void validarValorPositivo(Double valor) {
+        if (valor == null || valor <= 0) {
+            throw new IllegalArgumentException("O valor deve ser maior que zero");
+        }
     }
 }
