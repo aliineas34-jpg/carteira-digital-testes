@@ -1,4 +1,4 @@
-﻿package com.example.carteira.service;
+package com.example.carteira.service;
 
 import com.example.carteira.exception.SaldoInsuficienteException;
 import com.example.carteira.model.Conta;

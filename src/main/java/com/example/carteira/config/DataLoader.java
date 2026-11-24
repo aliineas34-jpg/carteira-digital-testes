@@ -1,4 +1,4 @@
-﻿package com.example.carteira.config;
+package com.example.carteira.config;
 
 import com.example.carteira.model.Conta;
 import com.example.carteira.repository.ContaRepository;

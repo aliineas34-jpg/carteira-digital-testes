@@ -1,4 +1,4 @@
-﻿package com.example.carteira.model;
+package com.example.carteira.model;
 
 import jakarta.persistence.*;
 

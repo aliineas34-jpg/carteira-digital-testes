@@ -1,4 +1,4 @@
-﻿package com.example.carteira.exception;
+package com.example.carteira.exception;
 
 public class SaldoInsuficienteException extends RuntimeException {
     public SaldoInsuficienteException(String mensagem) {

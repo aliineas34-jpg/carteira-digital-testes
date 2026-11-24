@@ -1,4 +1,4 @@
-﻿package com.example.carteira.selenium;
+package com.example.carteira.selenium;
 
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
